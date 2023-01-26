@@ -23,13 +23,20 @@ body {
   width: 100%;
   height: 100vh;
   background-color: rgb(29, 27, 27);
+  overflow: hidden;
 }
 
 .slider {
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .slider__card {
-  position: relative;
+  position: absolute;
   max-width: 520px;
   width: 100%;
   min-height: 600px;
@@ -40,9 +47,34 @@ body {
   border-radius: 24px;
 }
 
+.default-card {
+  position: absolute;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  max-width: 600px;
+  width: 100%;
+  background: #fff;
+  min-height: 520px;
+  z-index: 1;
+  box-shadow: 0px 24px 48px rgba(42, 134, 197, 0.12),
+    0px -12px 48px rgba(42, 134, 197, 0.12);
+  border-radius: 24px;
+}
+
+.top-card {
+  position: absolute;
+  z-index: 2;
+}
+
+.bottom-card {
+  position: absolute;
+  z-index: 0;
+  transform: rotate(-90deg);
+}
+
 .quotes-box {
   width: 100%;
-  /* text-align-last: end; */
   text-align: end;
   opacity: 0.3;
   margin-bottom: 32px;
@@ -80,9 +112,32 @@ body {
 }
 
 .arrows-box {
+  position: absolute;
   display: flex;
-  width: 100%;
-  justify-content: end;
+  z-index: 99;
+  right: 80px;
+  bottom: -255px;
+}
+
+.arrow-svg__container {
+  border: none;
+  box-shadow: none;
+  background: none;
+}
+
+.arrow {
+  transition: all 0.3s;
+}
+.arrow:hover {
+  cursor: pointer;
+}
+
+.arrow path {
+  fill: #51595b40;
+}
+
+.arrow:hover path {
+  fill: #2A86C5;
 }
 
 .left-arrow {
@@ -90,16 +145,98 @@ body {
 }
 
 .left-arrow:hover {
-  cursor: pointer;
-  transform: scale(-1, 1.2);
+  transform: scale(-1.2, 1.2);
 }
 
 .right-arrow:hover {
   transform: scale(1.2);
-  cursor: pointer;
 }
 
-.vertical-line {
+.divider {
+  position: relative;
+  z-index: 50;
   width: 1px;
   background-color: #51595b14;
+}
+
+.transform-left {
+  animation: 4s linear 1;
+  animation-name: left;
+  animation-fill-mode: forwards;
+}
+
+.transform-right {
+  animation: 4s ease-out 1;
+  animation-name: right;
+  animation-fill-mode: forwards;
+}
+
+.transform-left-reverse {
+  animation: 4s linear 1;
+  animation-name: left;
+  animation-fill-mode: forwards;
+  animation-direction: reverse;
+}
+
+.transform-right-reverse {
+  animation: 4s ease-out 1;
+  animation-name: right;
+  animation-fill-mode: forwards;
+  animation-direction: reverse;
+}
+
+@keyframes left {
+  0% {
+    transform: translateX(0px) rotate(0deg);
+    z-index: 2;
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateX(-700px) rotate(-15deg);
+    z-index: 2;
+    opacity: 1;
+  }
+
+  51% {
+    z-index: 0;
+  }
+
+  68% {
+    transform: translateX(-480px) rotate(-90deg);
+  }
+
+  100% {
+    transform: translateX(0px) rotate(-90deg);
+    opacity: 0.5;
+    z-index: 0;
+  }
+}
+
+@keyframes right {
+  0% {
+    transform: rotate(-90deg);
+    z-index: 0;
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateX(700px) rotate(-75deg);
+    opacity: 1;
+    z-index: 0;
+  }
+
+  51% {
+    z-index: 2;
+  }
+
+  68% {
+    transform: translateX(480px) rotate(0deg);
+    z-index: 2;
+  }
+
+  100% {
+    transform: translateX(0px) rotate(0deg);
+    z-index: 2;
+  }
 }
